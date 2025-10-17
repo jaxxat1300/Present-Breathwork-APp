@@ -14,14 +14,32 @@ body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   color: #333;
+  /* Mobile-specific styles */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Prevent zoom on double tap */
+  touch-action: manipulation;
+  /* Safe area for notched devices */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .app {
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  /* Mobile app-like behavior */
+  position: relative;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll */
+  max-width: 100vw;
 }
 
 /* Header styles */
@@ -137,11 +155,25 @@ body {
   transition: all 0.3s ease;
   text-align: center;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  /* Mobile touch interactions */
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+  touch-action: manipulation;
+  /* Prevent text selection on mobile */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .exercise-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.exercise-card:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  transition: all 0.1s ease;
 }
 
 .exercise-card h4 {
@@ -271,6 +303,11 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 140px;
+  /* Mobile touch styles */
+  -webkit-tap-highlight-color: rgba(197, 48, 48, 0.2);
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .stop-btn:hover {
@@ -291,6 +328,11 @@ body {
   transition: all 0.2s ease;
   min-width: 140px;
   box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+  /* Mobile touch styles */
+  -webkit-tap-highlight-color: rgba(72, 187, 120, 0.2);
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .benefit-btn:hover {
@@ -318,18 +360,26 @@ body {
   margin: 0;
 }
 
-/* Responsive design */
+/* Mobile-first responsive design */
 @media (max-width: 600px) {
   .app {
     padding: 15px;
+    /* Mobile app-like full screen */
+    min-height: 100vh;
+    min-height: 100dvh;
   }
   
   .app-header h1 {
     font-size: 2rem;
+    /* Prevent text selection on mobile */
+    -webkit-user-select: none;
+    user-select: none;
   }
   
   .app-main {
     padding: 20px;
+    /* Mobile-optimized spacing */
+    margin-bottom: env(safe-area-inset-bottom, 0px);
   }
   
   .metrics-grid {
@@ -339,15 +389,27 @@ body {
   
   .metric {
     padding: 12px;
+    /* Touch-friendly sizing */
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .exercise-card {
     padding: 20px;
+    /* Larger touch targets for mobile */
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .breathing-circle {
     width: 150px;
     height: 150px;
+    /* Mobile-optimized breathing circle */
+    margin: 20px auto;
   }
   
   .circle-inner {
@@ -357,17 +419,22 @@ body {
   
   .phase-text {
     font-size: 0.8rem;
+    line-height: 1.2;
   }
   
   .exercise-controls {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
   }
   
   .stop-btn,
   .benefit-btn {
     width: 100%;
     max-width: 200px;
+    /* Mobile touch targets */
+    min-height: 48px;
+    font-size: 1.1rem;
   }
 }
 

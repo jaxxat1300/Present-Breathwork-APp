@@ -42,6 +42,22 @@ const App = () => {
     }
   };
 
+  // Mobile haptic feedback simulation
+  const triggerHapticFeedback = () => {
+    if ('vibrate' in navigator) {
+      navigator.vibrate(50); // Short vibration
+    }
+  };
+
+  // Mobile touch handlers
+  const handleTouchStart = (e) => {
+    e.currentTarget.style.transform = 'scale(0.95)';
+  };
+
+  const handleTouchEnd = (e) => {
+    e.currentTarget.style.transform = '';
+  };
+
   // Exercise configurations
   const exercises = {
     boxBreathing: {
@@ -83,6 +99,7 @@ const App = () => {
     setBreathPhase('inhale');
     setPhaseTime(0);
     trackUsage();
+    triggerHapticFeedback(); // Mobile haptic feedback
   };
 
   // Stop exercise
@@ -145,6 +162,7 @@ const App = () => {
   // Mark benefit
   const markBenefit = () => {
     setMetrics(prev => ({ ...prev, benefitCount: prev.benefitCount + 1 }));
+    triggerHapticFeedback(); // Mobile haptic feedback
   };
 
   // Reset metrics
@@ -193,17 +211,32 @@ const App = () => {
             <div className="exercises">
               <h3>Choose an Exercise</h3>
               <div className="exercise-cards">
-                <div className="exercise-card" onClick={() => startExercise('boxBreathing')}>
+                <div 
+                  className="exercise-card" 
+                  onClick={() => startExercise('boxBreathing')}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
+                >
                   <h4>Box Breathing</h4>
                   <p>4-4-4-4 pattern</p>
                   <span className="duration">20 seconds</span>
                 </div>
-                <div className="exercise-card" onClick={() => startExercise('deepBelly')}>
+                <div 
+                  className="exercise-card" 
+                  onClick={() => startExercise('deepBelly')}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
+                >
                   <h4>Deep Belly Breath</h4>
                   <p>Calming breathwork</p>
                   <span className="duration">15 seconds</span>
                 </div>
-                <div className="exercise-card" onClick={() => startExercise('mindfulPause')}>
+                <div 
+                  className="exercise-card" 
+                  onClick={() => startExercise('mindfulPause')}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
+                >
                   <h4>Mindful Pause</h4>
                   <p>5-4-3-2-1 grounding</p>
                   <span className="duration">30 seconds</span>
