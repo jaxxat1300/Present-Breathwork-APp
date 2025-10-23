@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "./static/css/main.3223da0c.css",
-    "main.js": "./static/js/main.c0a23bac.js",
-    "index.html": "./index.html",
-    "main.3223da0c.css.map": "./static/css/main.3223da0c.css.map",
-    "main.c0a23bac.js.map": "./static/js/main.c0a23bac.js.map"
+    "main.css": "/Present-Breathwork-APp/static/css/main.d78840a1.css",
+    "main.js": "/Present-Breathwork-APp/static/js/main.da30790f.js",
+    "index.html": "/Present-Breathwork-APp/index.html",
+    "main.d78840a1.css.map": "/Present-Breathwork-APp/static/css/main.d78840a1.css.map",
+    "main.da30790f.js.map": "/Present-Breathwork-APp/static/js/main.da30790f.js.map"
   },
   "entrypoints": [
-    "static/css/main.3223da0c.css",
-    "static/js/main.c0a23bac.js"
+    "static/css/main.d78840a1.css",
+    "static/js/main.da30790f.js"
   ]
 }

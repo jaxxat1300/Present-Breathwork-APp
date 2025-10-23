@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A lightweight web app for helping users stay present in the moment with guided breathing exercises",
   "main": "index.js",
-  "homepage": ".",
+  "homepage": "https://jaxxat1300.github.io/Present-Breathwork-APp",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -33,7 +33,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": ".",
   "keywords": [
     "breathwork",
     "mindfulness",
