@@ -1,0 +1,267 @@
+/* Logo Splash Screen */
+.logo-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #8B5FBF 0%, #6B46C1 25%, #5B21B6 50%, #4C1D95 75%, #312E81 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.6s ease;
+}
+
+.logo-screen.fade-out {
+  animation: fadeOut 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Logo Container */
+.logo-container {
+  text-align: center;
+  position: relative;
+}
+
+/* Breathing Animation */
+.breathing-animation {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 40px;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.circle-1 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.circle-2 {
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  animation: breathe 4s ease-in-out infinite 0.5s;
+}
+
+.circle-3 {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+  animation: breathe 4s ease-in-out infinite 1s;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+/* Logo Center */
+.logo-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 15px 50px rgba(139, 95, 191, 0.5);
+  }
+}
+
+.logo-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.logo-circle {
+  fill: none;
+  stroke: #8B5FBF;
+  stroke-width: 2;
+  stroke-dasharray: 251;
+  stroke-dashoffset: 251;
+  animation: drawCircle 2s ease-in-out infinite;
+}
+
+@keyframes drawCircle {
+  0%, 100% {
+    stroke-dashoffset: 251;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.breath-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawPath 2s ease-in-out infinite;
+}
+
+@keyframes drawPath {
+  0%, 100% {
+    stroke-dashoffset: 100;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Logo Title */
+.logo-title {
+  font-size: 3rem;
+  font-weight: 200;
+  color: white;
+  margin: 0 0 10px;
+  letter-spacing: 2px;
+  animation: slideUp 0.8s ease 0.3s both;
+}
+
+.logo-subtitle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 30px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: slideUp 0.8s ease 0.5s both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading Dots */
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  animation: slideUp 0.8s ease 0.7s both;
+}
+
+.loading-dots span {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  animation: bounce 1.4s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .breathing-animation {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .circle-1 {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .circle-2 {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .circle-3 {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .logo-center {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .logo-title {
+    font-size: 2.2rem;
+  }
+  
+  .logo-subtitle {
+    font-size: 1rem;
+  }
+}
+

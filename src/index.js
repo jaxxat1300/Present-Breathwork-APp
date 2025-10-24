@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import PhoneFrame from './PhoneFrame';
+import Logo from './Logo';
 import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const Root = () => {
+  const [showLogo, setShowLogo] = useState(true);
+  const isDesktop = window.innerWidth > 768;
 
-// Check if we're on desktop (width > 768px) to show phone frame
-const isDesktop = window.innerWidth > 768;
+  if (showLogo) {
+    return <Logo onComplete={() => setShowLogo(false)} />;
+  }
 
-root.render(
-  <React.StrictMode>
-    {isDesktop ? (
-      <PhoneFrame>
+  return (
+    <React.StrictMode>
+      {isDesktop ? (
+        <PhoneFrame>
+          <App />
+        </PhoneFrame>
+      ) : (
         <App />
-      </PhoneFrame>
-    ) : (
-      <App />
-    )}
-  </React.StrictMode>
-);
+      )}
+    </React.StrictMode>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Root />);
