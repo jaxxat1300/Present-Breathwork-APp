@@ -10,7 +10,7 @@ const Website = ({ onTryApp }) => {
       setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ['hero', 'features', 'exercises', 'how-it-works', 'testimonials', 'download'];
+      const sections = ['hero', 'features', 'exercises'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -51,9 +51,7 @@ const Website = ({ onTryApp }) => {
             <a href="#hero" className={activeSection === 'hero' ? 'active' : ''}>Home</a>
             <a href="#features" className={activeSection === 'features' ? 'active' : ''}>Features</a>
             <a href="#exercises" className={activeSection === 'exercises' ? 'active' : ''}>Exercises</a>
-            <a href="#how-it-works" className={activeSection === 'how-it-works' ? 'active' : ''}>How It Works</a>
-            <a href="#testimonials" className={activeSection === 'testimonials' ? 'active' : ''}>Reviews</a>
-            <button onClick={() => scrollToSection('download')} className="nav-cta">Try It Free</button>
+            <button onClick={onTryApp} className="nav-cta">Try Interactive Demo</button>
           </div>
         </div>
       </nav>
@@ -80,24 +78,11 @@ const Website = ({ onTryApp }) => {
             <button onClick={onTryApp} className="hero-btn primary">
               Try Interactive Demo
             </button>
-            <button onClick={() => scrollToSection('how-it-works')} className="hero-btn secondary">
+            <button onClick={() => scrollToSection('features')} className="hero-btn secondary">
               Learn More
             </button>
           </div>
-          <div className="hero-stats">
-            <div className="stat">
-              <span className="stat-number">10K+</span>
-              <span className="stat-label">Active Users</span>
-            </div>
-            <div className="stat">
-              <span className="stat-number">50K+</span>
-              <span className="stat-label">Sessions Daily</span>
-            </div>
-            <div className="stat">
-              <span className="stat-number">4.9★</span>
-              <span className="stat-label">Rating</span>
-            </div>
-          </div>
+          {/* Slim hero without vanity metrics */}
         </div>
         <div className="scroll-indicator">
           <span>Scroll to explore</span>
@@ -189,99 +174,7 @@ const Website = ({ onTryApp }) => {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section id="how-it-works" className="how-section">
-        <div className="section-container">
-          <h2 className="section-title">Simple. Effective. Life-Changing.</h2>
-          
-          <div className="how-steps">
-            <div className="how-step">
-              <div className="step-number">1</div>
-              <div className="step-content">
-                <h3>Choose Your Need</h3>
-                <p>Select from 5 categories: Stress, Energy, Sleep, Mood, or Daily Wellness</p>
-              </div>
-            </div>
-            
-            <div className="how-step">
-              <div className="step-number">2</div>
-              <div className="step-content">
-                <h3>Pick Your Duration</h3>
-                <p>Quick mode for 30-90 seconds or full sessions for deeper practice</p>
-              </div>
-            </div>
-            
-            <div className="how-step">
-              <div className="step-number">3</div>
-              <div className="step-content">
-                <h3>Breathe & Transform</h3>
-                <p>Follow the animated guide with audio cues. Feel the difference instantly</p>
-              </div>
-            </div>
-            
-            <div className="how-step">
-              <div className="step-number">4</div>
-              <div className="step-content">
-                <h3>Track Your Growth</h3>
-                <p>See your progress, build streaks, and watch your wellness improve</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section id="testimonials" className="testimonials-section">
-        <div className="section-container">
-          <h2 className="section-title">Loved by Thousands</h2>
-          <p className="section-subtitle">Real stories from our community</p>
-          
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="stars">★★★★★</div>
-              <p>"This app changed my life. I use it every morning and before big meetings. The box breathing is incredible!"</p>
-              <div className="testimonial-author">
-                <strong>Sarah M.</strong>
-                <span>Product Manager</span>
-              </div>
-            </div>
-            
-            <div className="testimonial-card">
-              <div className="stars">★★★★★</div>
-              <p>"Finally, a breathwork app that's actually simple to use. The quick modes are perfect for my busy schedule."</p>
-              <div className="testimonial-author">
-                <strong>James K.</strong>
-                <span>Entrepreneur</span>
-              </div>
-            </div>
-            
-            <div className="testimonial-card">
-              <div className="stars">★★★★★</div>
-              <p>"The sleep exercises are magic. I fall asleep so much faster now. Best wellness app I've ever used."</p>
-              <div className="testimonial-author">
-                <strong>Maya L.</strong>
-                <span>Teacher</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Download/CTA Section */}
-      <section id="download" className="download-section">
-        <div className="section-container">
-          <div className="download-content">
-            <h2>Ready to Transform Your Life?</h2>
-            <p>Start your breathwork journey today. Free to use, no signup required.</p>
-            <button onClick={onTryApp} className="download-btn">
-              Try Interactive Demo
-            </button>
-            <div className="download-note">
-              ✨ Works on all devices • No installation needed • Always free
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* End of slim landing sections */}
 
       {/* Footer */}
       <footer className="website-footer">
@@ -303,13 +196,7 @@ const Website = ({ onTryApp }) => {
             <h4>Quick Links</h4>
             <a href="#features">Features</a>
             <a href="#exercises">Exercises</a>
-            <a href="#how-it-works">How It Works</a>
-          </div>
-          
-          <div className="footer-section">
-            <h4>Resources</h4>
-            <a href="#testimonials">Testimonials</a>
-            <a href="#download">Get Started</a>
+            <button className="nav-cta" onClick={onTryApp} style={{alignSelf: 'flex-start'}}>Try Interactive Demo</button>
           </div>
         </div>
         
