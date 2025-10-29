@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Website.css';
 
-const Website = () => {
+const Website = ({ onTryApp }) => {
   const [activeSection, setActiveSection] = useState('hero');
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -77,8 +77,8 @@ const Website = () => {
             Transform stress into serenity with guided breathing exercises designed for modern life
           </p>
           <div className="hero-buttons">
-            <button onClick={() => scrollToSection('download')} className="hero-btn primary">
-              Start Breathing Better
+            <button onClick={onTryApp} className="hero-btn primary">
+              Try Interactive Demo
             </button>
             <button onClick={() => scrollToSection('how-it-works')} className="hero-btn secondary">
               Learn More
@@ -273,8 +273,8 @@ const Website = () => {
           <div className="download-content">
             <h2>Ready to Transform Your Life?</h2>
             <p>Start your breathwork journey today. Free to use, no signup required.</p>
-            <button onClick={() => window.location.href = '/Present-Breathwork-APp/'} className="download-btn">
-              Open Web App
+            <button onClick={onTryApp} className="download-btn">
+              Try Interactive Demo
             </button>
             <div className="download-note">
               ✨ Works on all devices • No installation needed • Always free
