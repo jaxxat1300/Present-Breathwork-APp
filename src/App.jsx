@@ -10,7 +10,7 @@ const App = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [breathPhase, setBreathPhase] = useState('inhale');
   const [showFeedback, setShowFeedback] = useState(false);
-  const [publicMode, setPublicMode] = useState(false);
+  const [quietMode, setQuietMode] = useState(false);
 
   const intervalRef = useRef(null);
   const phaseIntervalRef = useRef(null);
@@ -55,7 +55,7 @@ const App = () => {
       quickDuration: 60,
       category: 'breathing',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 4, instruction: 'Breathe in slowly through your nose' },
         { name: 'Hold', duration: 4, instruction: 'Hold gently' },
@@ -71,7 +71,7 @@ const App = () => {
       quickDuration: 60,
       category: 'breathing',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 5, instruction: 'Breathe deeply into your belly' },
         { name: 'Exhale', duration: 7, instruction: 'Release completely' }
@@ -85,7 +85,7 @@ const App = () => {
       quickDuration: 45,
       category: 'breathing',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 4, instruction: 'Breathe in through nose' },
         { name: 'Hold', duration: 7, instruction: 'Hold the breath' },
@@ -100,7 +100,7 @@ const App = () => {
       quickDuration: 45,
       category: 'breathing',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 4, instruction: 'Breathe in slowly' },
         { name: 'Exhale', duration: 4, instruction: 'Breathe out slowly' }
@@ -116,7 +116,7 @@ const App = () => {
       quickDuration: 90,
       category: 'grounding',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Notice', duration: 30, instruction: '5 things you see' },
         { name: 'Notice', duration: 30, instruction: '4 things you feel' },
@@ -133,7 +133,7 @@ const App = () => {
       quickDuration: 120,
       category: 'grounding',
       needsHeadphones: true,
-      publicFriendly: false,
+      quietDiscreet: false,
       phases: [
         { name: 'Scan', duration: 40, instruction: 'Notice your toes' },
         { name: 'Scan', duration: 40, instruction: 'Notice your legs' },
@@ -150,7 +150,7 @@ const App = () => {
       quickDuration: 60,
       category: 'grounding',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Pause', duration: 30, instruction: 'Simply observe your breath' }
       ],
@@ -163,7 +163,7 @@ const App = () => {
       quickDuration: 150,
       category: 'grounding',
       needsHeadphones: true,
-      publicFriendly: false,
+      quietDiscreet: false,
       phases: [
         { name: 'Tense', duration: 5, instruction: 'Tense your feet, then release' },
         { name: 'Tense', duration: 5, instruction: 'Tense your legs, then release' },
@@ -181,7 +181,7 @@ const App = () => {
       quickDuration: 90,
       category: 'calm',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 3, instruction: 'Slow, gentle inhale' },
         { name: 'Exhale', duration: 6, instruction: 'Long, slow exhale' }
@@ -195,7 +195,7 @@ const App = () => {
       quickDuration: 90,
       category: 'calm',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 5, instruction: 'Breathe in peace' },
         { name: 'Exhale', duration: 7, instruction: 'Release the day' }
@@ -209,7 +209,7 @@ const App = () => {
       quickDuration: 150,
       category: 'calm',
       needsHeadphones: true,
-      publicFriendly: false,
+      quietDiscreet: false,
       phases: [
         { name: 'Inhale', duration: 6, instruction: 'Deep, slow breath' },
         { name: 'Exhale', duration: 10, instruction: 'Complete release' }
@@ -225,7 +225,7 @@ const App = () => {
       quickDuration: 45,
       category: 'energy',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 2, instruction: 'Quick, energizing inhale' },
         { name: 'Exhale', duration: 2, instruction: 'Powerful exhale' }
@@ -239,7 +239,7 @@ const App = () => {
       quickDuration: 30,
       category: 'energy',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 1, instruction: 'Sharp inhale' },
         { name: 'Exhale', duration: 1, instruction: 'Forceful exhale' }
@@ -253,7 +253,7 @@ const App = () => {
       quickDuration: 60,
       category: 'energy',
       needsHeadphones: false,
-      publicFriendly: true,
+      quietDiscreet: true,
       phases: [
         { name: 'Inhale', duration: 4, instruction: 'Wake up your body' },
         { name: 'Hold', duration: 2, instruction: 'Feel alive' },
@@ -278,9 +278,9 @@ const App = () => {
     }
   ];
 
-  // Haptic feedback for public mode
+  // Haptic feedback for quiet mode
   const triggerHaptic = () => {
-    if (publicMode && 'vibrate' in navigator) {
+    if (quietMode && 'vibrate' in navigator) {
       navigator.vibrate(50);
     }
   };
@@ -368,7 +368,7 @@ const App = () => {
         if (phaseIntervalRef.current) clearInterval(phaseIntervalRef.current);
       };
     }
-  }, [isActive, currentExercise, publicMode]);
+      }, [isActive, currentExercise, quietMode]);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -384,19 +384,21 @@ const App = () => {
         <p className="welcome-subtitle">You're safe. Slow down. This is the calm place.</p>
       </div>
 
-      {/* Public Mode Toggle */}
-      <div className="public-mode-toggle">
+      {/* Quiet Mode Toggle */}
+      <div className="quiet-mode-toggle">
         <button 
-          className={`toggle-btn ${publicMode ? 'active' : ''}`}
-          onClick={() => setPublicMode(!publicMode)}
+          className={`toggle-btn ${quietMode ? 'active' : ''}`}
+          onClick={() => setQuietMode(!quietMode)}
         >
-          <span className="toggle-icon">{publicMode ? '👁️' : '🔒'}</span>
-          <span className="toggle-label">
-            {publicMode ? 'Public Mode' : 'Private Mode'}
-          </span>
-          <span className="toggle-description">
-            {publicMode ? 'Discreet, quiet practice' : 'Full experience'}
-          </span>
+          <span className="toggle-icon">{quietMode ? '🤫' : '🔊'}</span>
+          <div className="toggle-content">
+            <span className="toggle-label">
+              {quietMode ? 'Quiet Mode' : 'Normal Mode'}
+            </span>
+            <span className="toggle-description">
+              {quietMode ? 'No heavy breathing or sounds needed' : 'Full breathing exercises'}
+            </span>
+          </div>
         </button>
       </div>
 
@@ -444,15 +446,15 @@ const App = () => {
 
         <div className="exercises-list">
           {categoryExercises.map((exercise) => (
-            <div key={exercise.key} className="exercise-item">
+            <div key={exercise.key} className={`exercise-item ${exercise.quietDiscreet ? 'quiet-exercise' : ''}`}>
               <div className="exercise-header">
                 <h3>{exercise.name}</h3>
                 <div className="exercise-badges">
-                  {!exercise.needsHeadphones && (
-                    <span className="badge no-headphones">No headphones</span>
+                  {exercise.quietDiscreet && (
+                    <span className="badge quiet">🤫 Quiet & Discreet</span>
                   )}
-                  {exercise.publicFriendly && (
-                    <span className="badge public">Public friendly</span>
+                  {exercise.needsHeadphones && (
+                    <span className="badge headphones">🎧 With headphones</span>
                   )}
                 </div>
               </div>
@@ -487,7 +489,7 @@ const App = () => {
     const categoryColor = categories[currentExercise?.category]?.color || colors.softBlue;
 
     return (
-      <div className={`exercise-active ${publicMode ? 'public-mode' : ''}`}>
+      <div className={`exercise-active ${quietMode ? 'quiet-mode' : ''}`}>
         <div className="exercise-top-bar">
           <button className="back-btn" onClick={stopExercise}>←</button>
           <div className="timer-display">{formatTime(timeLeft)}</div>
@@ -498,7 +500,7 @@ const App = () => {
             className={`breathing-circle ${breathPhase}`}
             style={{ 
               '--category-color': categoryColor,
-              transform: publicMode ? 'scale(0.9)' : undefined
+              transform: quietMode ? 'scale(0.9)' : undefined
             }}
           >
             <div className="circle-inner">
@@ -511,9 +513,9 @@ const App = () => {
           <p>{currentPhase?.instruction}</p>
         </div>
 
-        {publicMode && (
-          <div className="public-mode-indicator">
-            <span>👁️ Public Mode - Discreet practice</span>
+        {quietMode && (
+          <div className="quiet-mode-indicator">
+            <span>🤫 Quiet Mode - No heavy breathing or sounds</span>
           </div>
         )}
 
@@ -582,7 +584,7 @@ const App = () => {
   };
 
   return (
-    <div className={`app ${publicMode ? 'public-mode-active' : ''}`}>
+    <div className={`app ${quietMode ? 'quiet-mode-active' : ''}`}>
       {currentView === 'home' && <HomeView />}
       {currentView === 'category' && <CategoryView />}
       {currentView === 'exercise' && !showFeedback && <ExerciseView />}

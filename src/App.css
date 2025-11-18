@@ -46,7 +46,7 @@
   transition: background var(--transition-slow);
 }
 
-.app.public-mode-active {
+.app.quiet-mode-active {
   background: linear-gradient(180deg, #F5F7FA 0%, #E8EDF5 100%);
 }
 
@@ -81,8 +81,8 @@
   margin: 0 auto;
 }
 
-/* Public Mode Toggle */
-.public-mode-toggle {
+/* Quiet Mode Toggle */
+.quiet-mode-toggle {
   margin-bottom: 32px;
   animation: fadeInUp 0.6s ease 0.2s both;
 }
@@ -100,6 +100,13 @@
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-soft);
   text-align: left;
+}
+
+.toggle-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .toggle-btn:hover {
@@ -138,7 +145,7 @@
 .toggle-description {
   font-size: 0.875rem;
   color: var(--text-tertiary);
-  margin-top: 4px;
+  line-height: 1.4;
 }
 
 /* Categories Grid */
@@ -285,11 +292,22 @@
   padding: 24px;
   box-shadow: var(--shadow-soft);
   transition: all var(--transition-normal);
+  border: 2px solid transparent;
 }
 
 .exercise-item:hover {
   box-shadow: var(--shadow-medium);
   transform: translateY(-2px);
+}
+
+.exercise-item.quiet-exercise {
+  border-color: rgba(127, 176, 105, 0.2);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(127, 176, 105, 0.02) 100%);
+}
+
+.exercise-item.quiet-exercise:hover {
+  border-color: rgba(127, 176, 105, 0.35);
+  box-shadow: 0 6px 24px rgba(127, 176, 105, 0.15);
 }
 
 .exercise-header {
@@ -315,21 +333,27 @@
 }
 
 .badge {
-  padding: 6px 14px;
+  padding: 8px 16px;
   border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.3px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.badge.no-headphones {
-  background: rgba(127, 176, 105, 0.15);
-  color: #5A8A4A;
+.badge.quiet {
+  background: linear-gradient(135deg, rgba(127, 176, 105, 0.2) 0%, rgba(107, 159, 209, 0.15) 100%);
+  color: #4A7A3A;
+  border: 1px solid rgba(127, 176, 105, 0.3);
+  box-shadow: 0 2px 8px rgba(127, 176, 105, 0.15);
 }
 
-.badge.public {
-  background: rgba(107, 159, 209, 0.15);
-  color: #4A7BA5;
+.badge.headphones {
+  background: rgba(159, 143, 184, 0.15);
+  color: #6A5A85;
+  border: 1px solid rgba(159, 143, 184, 0.2);
 }
 
 .exercise-desc {
@@ -397,7 +421,7 @@
   animation: fadeIn 0.4s ease;
 }
 
-.exercise-active.public-mode {
+.exercise-active.quiet-mode {
   background: var(--bg-light);
 }
 
@@ -524,15 +548,16 @@
   letter-spacing: -0.3px;
 }
 
-.public-mode-indicator {
+.quiet-mode-indicator {
   text-align: center;
   margin-bottom: 24px;
-  padding: 12px 20px;
-  background: rgba(107, 159, 209, 0.1);
+  padding: 14px 20px;
+  background: rgba(127, 176, 105, 0.12);
+  border: 1px solid rgba(127, 176, 105, 0.2);
   border-radius: 16px;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  font-size: 0.9375rem;
+  color: #5A8A4A;
+  font-weight: 600;
 }
 
 .exercise-progress {
