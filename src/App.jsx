@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
+import { colors } from './theme';
 
 const App = () => {
   const [currentView, setCurrentView] = useState('home');
@@ -9,38 +10,39 @@ const App = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [breathPhase, setBreathPhase] = useState('inhale');
   const [showFeedback, setShowFeedback] = useState(false);
+  const [publicMode, setPublicMode] = useState(false);
 
   const intervalRef = useRef(null);
   const phaseIntervalRef = useRef(null);
 
-  // Soothing color palette for mental health
+  // Soothing color palette categories
   const categories = {
     breathing: {
       name: 'Breathing',
       icon: '🌬️',
       description: 'Guided breathwork exercises',
-      color: '#6B9BD1', // Soft blue
+      color: colors.softBlue,
       exercises: ['boxBreathing', 'deepBelly', 'calming478', 'equalBreath']
     },
     grounding: {
       name: 'Grounding',
       icon: '🌿',
       description: 'Present moment awareness',
-      color: '#7FB069', // Soft green
+      color: colors.forestGreen,
       exercises: ['fiveSenses', 'bodyScan', 'mindfulPause', 'progressiveRelaxation']
     },
     calm: {
       name: 'Calm',
       icon: '💙',
       description: 'Find peace and stillness',
-      color: '#9B8FB8', // Soft purple
+      color: colors.mutedPurple,
       exercises: ['anxietyRelief', 'eveningCalm', 'deepRelaxation']
     },
     energy: {
       name: 'Energy',
       icon: '☀️',
       description: 'Boost focus and alertness',
-      color: '#F4A460', // Soft orange
+      color: colors.accentOrange,
       exercises: ['energizingBreath', 'powerBreath', 'morningBoost']
     }
   };
@@ -276,13 +278,12 @@ const App = () => {
     }
   ];
 
-  // Load data from localStorage
-  useEffect(() => {
-    const savedMetrics = localStorage.getItem('breathworkMetrics');
-    if (savedMetrics) {
-      // Load if needed
+  // Haptic feedback for public mode
+  const triggerHaptic = () => {
+    if (publicMode && 'vibrate' in navigator) {
+      navigator.vibrate(50);
     }
-  }, []);
+  };
 
   // Start exercise
   const startExercise = (exerciseKey, isQuick = false) => {
@@ -294,6 +295,7 @@ const App = () => {
     setIsActive(true);
     setBreathPhase('inhale');
     setCurrentView('exercise');
+    triggerHaptic();
   };
 
   // Stop exercise
@@ -358,6 +360,7 @@ const App = () => {
           phaseStartTime = Date.now();
           const newPhase = currentExercise.phases[phaseIndex].name.toLowerCase().replace(' ', '');
           setBreathPhase(newPhase);
+          triggerHaptic();
         }
       }, 100);
 
@@ -365,7 +368,7 @@ const App = () => {
         if (phaseIntervalRef.current) clearInterval(phaseIntervalRef.current);
       };
     }
-  }, [isActive, currentExercise]);
+  }, [isActive, currentExercise, publicMode]);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -378,7 +381,23 @@ const App = () => {
     <div className="home-view">
       <div className="welcome-section">
         <h1>Present</h1>
-        <p>Find your calm, one breath at a time</p>
+        <p className="welcome-subtitle">You're safe. Slow down. This is the calm place.</p>
+      </div>
+
+      {/* Public Mode Toggle */}
+      <div className="public-mode-toggle">
+        <button 
+          className={`toggle-btn ${publicMode ? 'active' : ''}`}
+          onClick={() => setPublicMode(!publicMode)}
+        >
+          <span className="toggle-icon">{publicMode ? '👁️' : '🔒'}</span>
+          <span className="toggle-label">
+            {publicMode ? 'Public Mode' : 'Private Mode'}
+          </span>
+          <span className="toggle-description">
+            {publicMode ? 'Discreet, quiet practice' : 'Full experience'}
+          </span>
+        </button>
       </div>
 
       <div className="categories-grid">
@@ -392,7 +411,9 @@ const App = () => {
               setCurrentView('category');
             }}
           >
-            <div className="category-icon">{category.icon}</div>
+            <div className="category-icon" style={{ backgroundColor: `${category.color}15` }}>
+              {category.icon}
+            </div>
             <div className="category-info">
               <h3>{category.name}</h3>
               <p>{category.description}</p>
@@ -463,15 +484,23 @@ const App = () => {
       p.name.toLowerCase().replace(' ', '') === breathPhase
     ) || currentExercise?.phases[0];
 
+    const categoryColor = categories[currentExercise?.category]?.color || colors.softBlue;
+
     return (
-      <div className="exercise-active">
+      <div className={`exercise-active ${publicMode ? 'public-mode' : ''}`}>
         <div className="exercise-top-bar">
           <button className="back-btn" onClick={stopExercise}>←</button>
           <div className="timer-display">{formatTime(timeLeft)}</div>
         </div>
 
         <div className="breathing-circle-container">
-          <div className={`breathing-circle ${breathPhase}`}>
+          <div 
+            className={`breathing-circle ${breathPhase}`}
+            style={{ 
+              '--category-color': categoryColor,
+              transform: publicMode ? 'scale(0.9)' : undefined
+            }}
+          >
             <div className="circle-inner">
               <span className="phase-name">{currentPhase?.name}</span>
             </div>
@@ -482,12 +511,19 @@ const App = () => {
           <p>{currentPhase?.instruction}</p>
         </div>
 
+        {publicMode && (
+          <div className="public-mode-indicator">
+            <span>👁️ Public Mode - Discreet practice</span>
+          </div>
+        )}
+
         <div className="exercise-progress">
           <div className="progress-bar">
             <div 
               className="progress-fill"
               style={{ 
-                width: `${((currentExercise.actualDuration - timeLeft) / currentExercise.actualDuration) * 100}%` 
+                width: `${((currentExercise.actualDuration - timeLeft) / currentExercise.actualDuration) * 100}%`,
+                backgroundColor: categoryColor
               }}
             />
           </div>
@@ -546,7 +582,7 @@ const App = () => {
   };
 
   return (
-    <div className="app">
+    <div className={`app ${publicMode ? 'public-mode-active' : ''}`}>
       {currentView === 'home' && <HomeView />}
       {currentView === 'category' && <CategoryView />}
       {currentView === 'exercise' && !showFeedback && <ExerciseView />}
